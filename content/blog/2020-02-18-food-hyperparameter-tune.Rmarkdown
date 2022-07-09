@@ -96,11 +96,15 @@ We can't learn the right values when training a single model, but we can train a
 ```{r}
 doParallel::registerDoParallel()
 
+library(tictoc)
+
+tic()
 rf_grid <- tune_grid(
+    rf_spec,
     asia ~ .,
-    model = rf_spec,
     resamples = food_boot
 )
+toc()
 
 rf_grid
 ```

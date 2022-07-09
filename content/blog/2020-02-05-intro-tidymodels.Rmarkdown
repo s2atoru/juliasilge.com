@@ -212,8 +212,8 @@ set.seed(1234)
 nfl_folds <- vfold_cv(nfl_train, strata = playoffs)
 
 rf_res <- fit_resamples(
+    rf_spec,
     weekly_attendance ~ ., 
-    rf_spec, 
     nfl_folds,
     control = control_resamples(save_pred = TRUE)
 )

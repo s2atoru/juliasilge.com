@@ -143,7 +143,7 @@ hotel_train <- training(hotel_split)
 hotel_test <- testing(hotel_split)
 
 hotel_rec <- recipe(children ~ ., data = hotel_train) %>%
-    step_downsample(children) %>%
+    themis::step_downsample(children) %>%
     step_dummy(all_nominal(), -all_outcomes()) %>%
     step_zv(all_numeric()) %>%
     step_normalize(all_numeric()) %>%
@@ -188,8 +188,8 @@ validation_splits <- mc_cv(juice(hotel_rec), prop = 0.9, strata = children)
 validation_splits
 
 knn_res <- fit_resamples(
-    children ~ .,
     knn_spec,
+    children ~ .,
     validation_splits,
     control = control_resamples(save_pred = TRUE)
 )
@@ -198,8 +198,8 @@ knn_res %>%
     collect_metrics()
 
 tree_res <- fit_resamples(
-    children ~ .,
     tree_spec,
+    children ~ .,
     validation_splits,
     control = control_resamples(save_pred = TRUE)
 )
