@@ -186,12 +186,15 @@ IT'S TIME TO TUNE. We use `tune_grid()` with our tuneable workflow, our resample
 doParallel::registerDoParallel()
 
 set.seed(234)
+library(tictoc)
+tic()
 xgb_res <- tune_grid(
   xgb_wf,
   resamples = vb_folds,
   grid = xgb_grid,
   control = control_grid(save_pred = TRUE)
 )
+toc()
 
 xgb_res
 ```
